@@ -1,4 +1,4 @@
-function drawHier(containerDiv) {
+function drawHier(infile,containerDiv) {
   var margin = {top: 20, right: 20, bottom: 20, left: 20};
   var width = 960 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
@@ -28,7 +28,7 @@ function drawHier(containerDiv) {
 	var link = svg.append("g").selectAll(".link"),
 	    node = svg.append("g").selectAll(".node");
 
-	d3.json("./data/hier_bund.json", function(error, classes) {
+	d3.json(infile, function(error, classes) {
 	  if (error) throw error;
 
 	  var nodes = cluster.nodes(packageHierarchy(classes)),
@@ -49,6 +49,7 @@ function drawHier(containerDiv) {
 	      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
 	      .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
 	      .text(function(d) { return d.key; })
+	      .style("font-size","8px")
 	      .on("mouseover", mouseovered)
 	      .on("mouseout", mouseouted);
 	});
